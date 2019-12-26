@@ -1,0 +1,31 @@
+### Create Project
+
+POST http://localhost:8080/projects
+Content-Type: application/json
+
+{
+  "name": "foo",
+  "password": "bar"
+}
+
+### Authenticate
+
+POST http://localhost:8080/auth
+Content-Type: application/json
+
+{
+  "projectId": 1,
+  "password": "bar"
+}
+
+> {%
+    client.global.set("auth_token", response.body.token);
+  %}
+
+### List Projects
+
+GET http://localhost:8080/projects
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+###
