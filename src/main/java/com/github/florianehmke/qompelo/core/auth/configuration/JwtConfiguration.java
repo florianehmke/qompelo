@@ -7,7 +7,6 @@ import lombok.Data;
 @ConfigProperties(prefix = "auth.jwt")
 public class JwtConfiguration {
 
-  private String secret;
   private String issuer;
-  private Long timeoutSeconds;
+  private Long maxAge;
 }

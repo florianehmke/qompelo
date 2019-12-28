@@ -36,7 +36,7 @@ public class ProjectController {
 
   @POST
   @Transactional
-  public ProjectResponse post(@Valid ProjectCreateRequest request) {
+  public ProjectResponse createProject(@Valid ProjectCreateRequest request) {
     var project = new ProjectEntity();
     project.name = request.getName();
     project.passwordHash = hashPassword(request.getPassword());

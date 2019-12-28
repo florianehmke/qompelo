@@ -19,7 +19,7 @@ class AuthService {
 
   String createToken(TokenData tokenData) {
     var issuedAt = Instant.now();
-    var expiresAt = issuedAt.plusSeconds(jwtConfiguration.getTimeoutSeconds());
+    var expiresAt = issuedAt.plusSeconds(jwtConfiguration.getMaxAge());
 
     return Jwts.builder()
         .setIssuer(jwtConfiguration.getIssuer())
