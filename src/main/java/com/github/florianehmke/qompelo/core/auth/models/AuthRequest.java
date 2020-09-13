@@ -1,15 +1,13 @@
 package com.github.florianehmke.qompelo.core.auth.models;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.Value;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-@Data
-@Builder
+@Value
 public class AuthRequest {
 
-  @NotNull public Long projectId;
-  @NotBlank public String password;
+  @NotNull private final Long projectId;
+  @NotBlank private final String password;
 }
