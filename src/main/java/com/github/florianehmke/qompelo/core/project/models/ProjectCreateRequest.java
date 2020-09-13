@@ -9,6 +9,6 @@ import javax.validation.constraints.NotBlank;
 @Builder
 public class ProjectCreateRequest {
 
-  @NotBlank private String name;
-  @NotBlank private String password;
+  @NotBlank public String name;
+  @NotBlank public String password;
 }
