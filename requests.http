@@ -1,31 +1,50 @@
-### Create Project
-
-POST http://localhost:8080/projects
+### Create Player
+POST http://localhost:8080/players
 Content-Type: application/json
 
 {
-  "name": "foo",
-  "password": "bar"
+  "name": "Player 1",
+  "password": "secret"
 }
 
-### Authenticate
-
-POST http://localhost:8080/auth
+### Login Player
+POST http://localhost:8080/players/login
 Content-Type: application/json
 
 {
-  "projectId": 1,
-  "password": "bar"
+  "name": "Player 1",
+  "password": "secret"
 }
 
 > {%
     client.global.set("auth_token", response.body.token);
   %}
 
-### List Projects
+### Create Project
+POST http://localhost:8080/projects
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
 
+{
+  "name": "Avengers",
+  "password": "secret"
+}
+
+### List All Projects
 GET http://localhost:8080/projects
 Content-Type: application/json
 Authorization: Bearer {{auth_token}}
 
+### List My Projects
+GET http://localhost:8080/projects/mine
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+### Games
+GET http://localhost:8080/projects/3/games
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
 ###
+
+
