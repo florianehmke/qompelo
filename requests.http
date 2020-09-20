@@ -39,6 +39,11 @@ GET http://localhost:8080/projects/mine
 Content-Type: application/json
 Authorization: Bearer {{auth_token}}
 
+### List Project's players
+GET http://localhost:8080/projects/3/players
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
 ### Games
 GET http://localhost:8080/projects/3/games
 Content-Type: application/json

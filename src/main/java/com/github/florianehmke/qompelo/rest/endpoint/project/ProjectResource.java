@@ -3,6 +3,8 @@ package com.github.florianehmke.qompelo.rest.endpoint.project;
 import com.github.florianehmke.qompelo.domain.Player;
 import com.github.florianehmke.qompelo.domain.Project;
 import com.github.florianehmke.qompelo.rest.endpoint.game.GameResource;
+import com.github.florianehmke.qompelo.rest.endpoint.player.PlayerMapper;
+import com.github.florianehmke.qompelo.rest.endpoint.player.models.PlayerResponse;
 import com.github.florianehmke.qompelo.rest.endpoint.project.models.ProjectCreateRequest;
 import com.github.florianehmke.qompelo.rest.endpoint.project.models.ProjectResponse;
 import com.github.florianehmke.qompelo.rest.exception.ForbiddenProjectException;
@@ -23,27 +25,35 @@ import java.util.Collection;
 @Consumes(MediaType.APPLICATION_JSON)
 public class ProjectResource {
 
-  @Inject ProjectMapper mapper;
+  @Inject ProjectMapper projectMapper;
+  @Inject PlayerMapper playerMapper;
   @Inject GameResource gameResource;
   @Inject Player currentPlayer;
 
   @GET
   public Collection<ProjectResponse> listAll() {
-    return mapper.map(Project.listAll());
+    return projectMapper.map(Project.listAll());
   }
 
   @GET
   @Path("mine")
   @RolesAllowed(Roles.AUTHENTICATED)
   public Collection<ProjectResponse> mine() {
-    return mapper.map(currentPlayer.projects);
+    return projectMapper.map(currentPlayer.projects);
+  }
+
+  @GET
+  @Path("{projectId}/players")
+  @RolesAllowed(Roles.AUTHENTICATED)
+  public Collection<PlayerResponse> players(@PathParam("projectId") Long projectId) {
+    return playerMapper.map(Project.mustLoad(projectId).players);
   }
 
   @POST
   @Transactional
   @RolesAllowed(Roles.AUTHENTICATED)
   public ProjectResponse createProject(@Valid ProjectCreateRequest request) {
-    return mapper.map(Project.create(request.getName(), request.getPassword()));
+    return projectMapper.map(Project.create(request.getName(), request.getPassword()));
   }
 
   @Path("{projectId}/games")
