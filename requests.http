@@ -33,7 +33,6 @@ Authorization: Bearer {{auth_token}}
 ### List All Projects
 GET http://localhost:8080/projects
 Content-Type: application/json
-Authorization: Bearer {{auth_token}}
 
 ### List My Projects
 GET http://localhost:8080/projects/mine

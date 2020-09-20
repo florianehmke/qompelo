@@ -6,6 +6,7 @@ import com.github.florianehmke.qompelo.rest.endpoint.game.GameResource;
 import com.github.florianehmke.qompelo.rest.endpoint.project.models.ProjectCreateRequest;
 import com.github.florianehmke.qompelo.rest.endpoint.project.models.ProjectResponse;
 import com.github.florianehmke.qompelo.rest.exception.ForbiddenProjectException;
+import com.github.florianehmke.qompelo.rest.security.Roles;
 
 import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.RequestScoped;
@@ -23,8 +24,8 @@ import java.util.Collection;
 public class ProjectResource {
 
   @Inject ProjectMapper mapper;
-  @Inject Player currentPlayer;
   @Inject GameResource gameResource;
+  @Inject Player currentPlayer;
 
   @GET
   public Collection<ProjectResponse> listAll() {
@@ -32,21 +33,21 @@ public class ProjectResource {
   }
 
   @GET
-  @RolesAllowed("USER")
   @Path("mine")
+  @RolesAllowed(Roles.AUTHENTICATED)
   public Collection<ProjectResponse> mine() {
     return mapper.map(currentPlayer.projects);
   }
 
   @POST
-  @RolesAllowed("USER")
   @Transactional
+  @RolesAllowed(Roles.AUTHENTICATED)
   public ProjectResponse createProject(@Valid ProjectCreateRequest request) {
     return mapper.map(Project.create(request.getName(), request.getPassword()));
   }
 
   @Path("{projectId}/games")
-  @RolesAllowed("USER")
+  @RolesAllowed(Roles.AUTHENTICATED)
   public GameResource gameResource(@PathParam("projectId") Long projectId) {
     return (GameResource) gameResource.withProject(loadProject(projectId));
   }

@@ -1,5 +1,6 @@
 package com.github.florianehmke.qompelo.rest.token;
 
+import com.github.florianehmke.qompelo.rest.security.Roles;
 import io.smallrye.jwt.build.Jwt;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -20,7 +21,7 @@ public class TokenService {
     var expiresAt = issuedAt.plusSeconds(tokenConfiguration.getMaxAge());
 
     return Jwt.issuer(tokenConfiguration.getIssuer())
-        .groups(Set.of("USER"))
+        .groups(Set.of(Roles.AUTHENTICATED))
         .subject(tokenData.getUserName())
         .preferredUserName(tokenData.getUserName())
         .claim(USER_NAME, tokenData.getUserName())
