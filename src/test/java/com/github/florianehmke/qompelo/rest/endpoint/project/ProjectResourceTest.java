@@ -4,6 +4,7 @@ import com.github.florianehmke.qompelo.TestUtils;
 import com.github.florianehmke.qompelo.domain.Player;
 import com.github.florianehmke.qompelo.domain.Project;
 import com.github.florianehmke.qompelo.rest.endpoint.project.model.ProjectCreateRequest;
+import com.github.florianehmke.qompelo.rest.endpoint.project.model.ProjectResponse;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import org.jeasy.random.EasyRandom;
@@ -14,6 +15,7 @@ import org.junit.jupiter.api.TestInstance;
 import javax.transaction.Transactional;
 
 import static com.github.florianehmke.qompelo.TestUtils.easyRandom;
+import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.with;
 import static io.restassured.http.ContentType.JSON;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -56,8 +58,19 @@ class ProjectResourceTest {
   }
 
   @Test
-  @Transactional
   public void testMine() {
-    // TODO
+    var responseList =
+        given()
+            .when()
+            .header("Authorization", "Bearer " + TestUtils.accessToken())
+            .get("mine")
+            .then()
+            .statusCode(200)
+            .extract()
+            .jsonPath()
+            .getList(".", ProjectResponse.class);
+
+    var expected = ProjectResponse.builder().id(testProject.id).name(testProject.name).build();
+    assertThat(responseList).containsOnly(expected);
   }
 }
