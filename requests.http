@@ -44,11 +44,35 @@ GET http://localhost:8080/projects/3/players
 Content-Type: application/json
 Authorization: Bearer {{auth_token}}
 
-### Games
+### List Games
 GET http://localhost:8080/projects/3/games
 Content-Type: application/json
 Authorization: Bearer {{auth_token}}
 
+### List Matches
+GET http://localhost:8080/projects/3/games/4/matches
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+### Create Match
+POST http://localhost:8080/projects/3/games/4/matches
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "teams": [
+    {
+      "score": 1,
+      "playerIds": [1]
+    },
+    {
+      "score": 2,
+      "playerIds": [2]
+    }
+  ]
+}
+
 ###
+
 
 

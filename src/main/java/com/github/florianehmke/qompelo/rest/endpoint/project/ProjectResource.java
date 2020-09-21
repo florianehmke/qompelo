@@ -3,10 +3,11 @@ package com.github.florianehmke.qompelo.rest.endpoint.project;
 import com.github.florianehmke.qompelo.domain.Player;
 import com.github.florianehmke.qompelo.domain.Project;
 import com.github.florianehmke.qompelo.rest.endpoint.game.GameResource;
-import com.github.florianehmke.qompelo.rest.endpoint.player.PlayerMapper;
-import com.github.florianehmke.qompelo.rest.endpoint.player.models.PlayerResponse;
-import com.github.florianehmke.qompelo.rest.endpoint.project.models.ProjectCreateRequest;
-import com.github.florianehmke.qompelo.rest.endpoint.project.models.ProjectResponse;
+import com.github.florianehmke.qompelo.rest.endpoint.player.mapper.PlayerMapper;
+import com.github.florianehmke.qompelo.rest.endpoint.player.model.PlayerResponse;
+import com.github.florianehmke.qompelo.rest.endpoint.project.mapper.ProjectMapper;
+import com.github.florianehmke.qompelo.rest.endpoint.project.model.ProjectCreateRequest;
+import com.github.florianehmke.qompelo.rest.endpoint.project.model.ProjectResponse;
 import com.github.florianehmke.qompelo.rest.exception.ForbiddenProjectException;
 import com.github.florianehmke.qompelo.rest.security.Roles;
 

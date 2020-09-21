@@ -1,4 +1,4 @@
-package com.github.florianehmke.qompelo.rest.endpoint.player.models;
+package com.github.florianehmke.qompelo.rest.endpoint.project.model;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -8,7 +8,7 @@ import lombok.Value;
 @Value
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class PlayerResponse {
+public class ProjectResponse {
 
   private final Long id;
   private final String name;

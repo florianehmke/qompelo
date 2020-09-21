@@ -1,4 +1,4 @@
-package com.github.florianehmke.qompelo.rest.endpoint.game.models;
+package com.github.florianehmke.qompelo.rest.endpoint.game.model;
 
 import lombok.Data;
 

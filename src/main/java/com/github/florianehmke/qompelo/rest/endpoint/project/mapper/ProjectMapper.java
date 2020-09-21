@@ -1,14 +1,14 @@
-package com.github.florianehmke.qompelo.rest.endpoint.project;
+package com.github.florianehmke.qompelo.rest.endpoint.project.mapper;
 
 import com.github.florianehmke.qompelo.rest.endpoint.CentralMapperConfig;
-import com.github.florianehmke.qompelo.rest.endpoint.project.models.ProjectResponse;
+import com.github.florianehmke.qompelo.rest.endpoint.project.model.ProjectResponse;
 import com.github.florianehmke.qompelo.domain.Project;
 import org.mapstruct.Mapper;
 
 import java.util.Collection;
 
 @Mapper(config = CentralMapperConfig.class)
-interface ProjectMapper {
+public interface ProjectMapper {
 
   ProjectResponse map(Project entity);
 

@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -47,7 +48,7 @@ public class Game extends PanacheEntity {
     return game;
   }
 
-  public Match addMatch(List<TeamParameter> teams) {
+  public Match addMatch(Collection<TeamParameter> teams) {
     var match = Match.create(now(), this);
 
     for (TeamParameter team : teams) {

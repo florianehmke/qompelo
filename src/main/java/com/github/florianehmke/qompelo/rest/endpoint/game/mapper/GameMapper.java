@@ -1,8 +1,8 @@
-package com.github.florianehmke.qompelo.rest.endpoint.game;
+package com.github.florianehmke.qompelo.rest.endpoint.game.mapper;
 
 import com.github.florianehmke.qompelo.domain.Game;
 import com.github.florianehmke.qompelo.rest.endpoint.CentralMapperConfig;
-import com.github.florianehmke.qompelo.rest.endpoint.game.models.GameResponse;
+import com.github.florianehmke.qompelo.rest.endpoint.game.model.GameResponse;
 import org.mapstruct.Mapper;
 
 import java.util.Collection;

@@ -1,17 +1,16 @@
 package com.github.florianehmke.qompelo.rest.endpoint.game;
 
 import com.github.florianehmke.qompelo.domain.Game;
-import com.github.florianehmke.qompelo.rest.endpoint.game.models.GameCreateRequest;
-import com.github.florianehmke.qompelo.rest.endpoint.game.models.GameResponse;
+import com.github.florianehmke.qompelo.rest.endpoint.game.mapper.GameMapper;
+import com.github.florianehmke.qompelo.rest.endpoint.game.model.GameCreateRequest;
+import com.github.florianehmke.qompelo.rest.endpoint.game.model.GameResponse;
+import com.github.florianehmke.qompelo.rest.endpoint.match.MatchResource;
 import com.github.florianehmke.qompelo.rest.endpoint.project.ProjectSubResource;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.validation.Valid;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.Collection;
 
@@ -21,6 +20,7 @@ import java.util.Collection;
 public class GameResource extends ProjectSubResource {
 
   @Inject GameMapper mapper;
+  @Inject MatchResource matchResource;
 
   @POST
   public GameResponse create(@Valid GameCreateRequest request) {
@@ -30,5 +30,10 @@ public class GameResource extends ProjectSubResource {
   @GET
   public Collection<GameResponse> listAll() {
     return mapper.map(project.games);
+  }
+
+  @Path("{gameId}/matches")
+  public MatchResource matchResource(@PathParam("gameId") Long gameId) {
+    return (MatchResource) matchResource.withGame(Game.mustLoad(gameId));
   }
 }

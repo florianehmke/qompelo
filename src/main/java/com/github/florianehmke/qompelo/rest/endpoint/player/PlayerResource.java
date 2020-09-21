@@ -1,9 +1,10 @@
 package com.github.florianehmke.qompelo.rest.endpoint.player;
 
 import com.github.florianehmke.qompelo.domain.Player;
-import com.github.florianehmke.qompelo.rest.endpoint.player.models.PlayerCreateRequest;
-import com.github.florianehmke.qompelo.rest.endpoint.player.models.PlayerLoginRequest;
-import com.github.florianehmke.qompelo.rest.endpoint.player.models.PlayerResponse;
+import com.github.florianehmke.qompelo.rest.endpoint.player.mapper.PlayerMapper;
+import com.github.florianehmke.qompelo.rest.endpoint.player.model.PlayerCreateRequest;
+import com.github.florianehmke.qompelo.rest.endpoint.player.model.PlayerLoginRequest;
+import com.github.florianehmke.qompelo.rest.endpoint.player.model.PlayerResponse;
 import com.github.florianehmke.qompelo.rest.token.TokenData;
 import com.github.florianehmke.qompelo.rest.token.TokenResponse;
 import com.github.florianehmke.qompelo.rest.token.TokenService;
