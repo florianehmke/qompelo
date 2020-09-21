@@ -8,24 +8,23 @@ import javax.inject.Inject;
 import java.time.Instant;
 import java.util.Set;
 
-import static com.github.florianehmke.qompelo.rest.token.TokenData.Claims.PROJECTS;
-import static com.github.florianehmke.qompelo.rest.token.TokenData.Claims.USER_NAME;
-
 @ApplicationScoped
 public class TokenService {
 
   @Inject TokenConfiguration tokenConfiguration;
 
-  public String createToken(TokenData tokenData) {
-    var issuedAt = Instant.now();
-    var expiresAt = issuedAt.plusSeconds(tokenConfiguration.getMaxAge());
+  public String createToken(String userName) {
+    return createToken(userName, tokenConfiguration.getMaxAge(), tokenConfiguration.getIssuer());
+  }
 
-    return Jwt.issuer(tokenConfiguration.getIssuer())
+  public static String createToken(String userName, Long maxAge, String issuer) {
+    var issuedAt = Instant.now();
+    var expiresAt = issuedAt.plusSeconds(maxAge);
+
+    return Jwt.issuer(issuer)
         .groups(Set.of(Roles.AUTHENTICATED))
-        .subject(tokenData.getUserName())
-        .preferredUserName(tokenData.getUserName())
-        .claim(USER_NAME, tokenData.getUserName())
-        .claim(PROJECTS, tokenData.getProjects())
+        .subject(userName)
+        .preferredUserName(userName)
         .expiresAt(expiresAt)
         .issuedAt(issuedAt)
         .sign();

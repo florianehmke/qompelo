@@ -5,7 +5,6 @@ import com.github.florianehmke.qompelo.rest.endpoint.player.mapper.PlayerMapper;
 import com.github.florianehmke.qompelo.rest.endpoint.player.model.PlayerCreateRequest;
 import com.github.florianehmke.qompelo.rest.endpoint.player.model.PlayerLoginRequest;
 import com.github.florianehmke.qompelo.rest.endpoint.player.model.PlayerResponse;
-import com.github.florianehmke.qompelo.rest.token.TokenData;
 import com.github.florianehmke.qompelo.rest.token.TokenResponse;
 import com.github.florianehmke.qompelo.rest.token.TokenService;
 
@@ -38,8 +37,7 @@ public class PlayerResource {
   @Path("login")
   public TokenResponse login(@Valid PlayerLoginRequest request) {
     var player = Player.loadAndVerifyPassword(request.getName(), request.getPassword());
-    var tokenData = TokenData.builder().userName(player.name).projects(player.projectIds()).build();
-    var accessToken = tokenService.createToken(tokenData);
+    var accessToken = tokenService.createToken(player.name);
     return TokenResponse.builder().token(accessToken).build();
   }
 }

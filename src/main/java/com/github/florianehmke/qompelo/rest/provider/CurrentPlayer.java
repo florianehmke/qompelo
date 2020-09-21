@@ -1,8 +1,8 @@
 package com.github.florianehmke.qompelo.rest.provider;
 
 import com.github.florianehmke.qompelo.domain.Player;
-import com.github.florianehmke.qompelo.rest.token.TokenData;
 import org.eclipse.microprofile.jwt.Claim;
+import org.eclipse.microprofile.jwt.Claims;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
@@ -12,7 +12,7 @@ import javax.inject.Inject;
 public class CurrentPlayer {
 
   @Inject
-  @Claim(value = TokenData.Claims.USER_NAME)
+  @Claim(standard = Claims.preferred_username)
   String userName;
 
   @Produces
