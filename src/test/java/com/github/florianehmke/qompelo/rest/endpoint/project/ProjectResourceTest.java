@@ -12,7 +12,9 @@ import org.junit.jupiter.api.TestInstance;
 import javax.inject.Inject;
 import javax.transaction.UserTransaction;
 
-import static com.github.florianehmke.qompelo.TestUtils.*;
+import static com.github.florianehmke.qompelo.testing.util.Random.EASY_RANDOM;
+import static com.github.florianehmke.qompelo.testing.util.RestAssured.givenTestUser;
+import static com.github.florianehmke.qompelo.testing.util.Transaction.doInTransaction;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @QuarkusTest
@@ -25,9 +27,9 @@ class ProjectResourceTest {
   @Test
   public void testCreateProject() {
     var body = EASY_RANDOM.nextObject(ProjectCreateRequest.class);
-    var spec = givenTestUser(transaction);
+    var spec = givenTestUser(transaction).body(body).post();
 
-    doInTransaction(transaction, () -> spec.body(body).post().then().statusCode(200));
+    doInTransaction(transaction, () -> spec.then().statusCode(200));
 
     Project persisted = Project.find("name", body.getName()).singleResult();
     assertThat(persisted).isNotNull();
@@ -35,8 +37,8 @@ class ProjectResourceTest {
 
   @Test
   public void testMine() {
-    final String projectName = EASY_RANDOM.nextObject(String.class);
-    final String userName = EASY_RANDOM.nextObject(String.class);
+    var projectName = EASY_RANDOM.nextObject(String.class);
+    var userName = EASY_RANDOM.nextObject(String.class);
 
     doInTransaction(
         transaction,
@@ -46,14 +48,9 @@ class ProjectResourceTest {
           testUser.addProject(testProject.id, projectName);
         });
 
+    var spec = givenTestUser(userName).get("mine");
     var responseList =
-        givenTestUser(userName)
-            .get("mine")
-            .then()
-            .statusCode(200)
-            .extract()
-            .jsonPath()
-            .getList(".", ProjectResponse.class);
+        spec.then().statusCode(200).extract().jsonPath().getList(".", ProjectResponse.class);
 
     assertThat(responseList).extracting(ProjectResponse::getName).containsExactly(projectName);
   }
@@ -64,14 +61,9 @@ class ProjectResourceTest {
 
     doInTransaction(transaction, () -> Project.create(projectName, projectName));
 
+    var spec = givenTestUser(transaction).get();
     var responseList =
-        givenTestUser(transaction)
-            .get()
-            .then()
-            .statusCode(200)
-            .extract()
-            .jsonPath()
-            .getList(".", ProjectResponse.class);
+        spec.then().statusCode(200).extract().jsonPath().getList(".", ProjectResponse.class);
 
     assertThat(responseList).hasSizeGreaterThanOrEqualTo(1);
     assertThat(responseList).extracting(ProjectResponse::getName).contains(projectName);
