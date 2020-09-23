@@ -24,6 +24,7 @@ import java.util.Collection;
 @RequestScoped
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@RolesAllowed(Roles.AUTHENTICATED)
 public class ProjectResource {
 
   @Inject ProjectMapper projectMapper;
@@ -38,27 +39,23 @@ public class ProjectResource {
 
   @GET
   @Path("mine")
-  @RolesAllowed(Roles.AUTHENTICATED)
   public Collection<ProjectResponse> mine() {
     return projectMapper.map(currentPlayer.projects);
   }
 
   @GET
   @Path("{projectId}/players")
-  @RolesAllowed(Roles.AUTHENTICATED)
   public Collection<PlayerResponse> players(@PathParam("projectId") Long projectId) {
     return playerMapper.map(Project.mustLoad(projectId).players);
   }
 
   @POST
   @Transactional
-  @RolesAllowed(Roles.AUTHENTICATED)
   public ProjectResponse createProject(@Valid ProjectCreateRequest request) {
     return projectMapper.map(Project.create(request.getName(), request.getPassword()));
   }
 
   @Path("{projectId}/games")
-  @RolesAllowed(Roles.AUTHENTICATED)
   public GameResource gameResource(@PathParam("projectId") Long projectId) {
     return (GameResource) gameResource.withProject(loadProject(projectId));
   }

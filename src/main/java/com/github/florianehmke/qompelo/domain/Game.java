@@ -10,7 +10,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import static java.time.ZonedDateTime.now;
@@ -49,14 +48,6 @@ public class Game extends PanacheEntity {
   }
 
   public Match addMatch(Collection<TeamParameter> teams) {
-    var match = Match.create(now(), this);
-
-    for (TeamParameter team : teams) {
-      var players = Player.findByIds(team.getPlayerIds());
-      match.addTeam(players, team.getScore());
-    }
-
-    match.score();
-    return match;
+    return Match.create(now(), this, teams);
   }
 }

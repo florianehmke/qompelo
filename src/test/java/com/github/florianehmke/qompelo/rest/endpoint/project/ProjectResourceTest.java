@@ -1,23 +1,18 @@
 package com.github.florianehmke.qompelo.rest.endpoint.project;
 
-import com.github.florianehmke.qompelo.TestUtils;
 import com.github.florianehmke.qompelo.domain.Player;
 import com.github.florianehmke.qompelo.domain.Project;
 import com.github.florianehmke.qompelo.rest.endpoint.project.model.ProjectCreateRequest;
 import com.github.florianehmke.qompelo.rest.endpoint.project.model.ProjectResponse;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
-import org.jeasy.random.EasyRandom;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
-import javax.transaction.Transactional;
+import javax.inject.Inject;
+import javax.transaction.UserTransaction;
 
-import static com.github.florianehmke.qompelo.TestUtils.easyRandom;
-import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.with;
-import static io.restassured.http.ContentType.JSON;
+import static com.github.florianehmke.qompelo.TestUtils.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @QuarkusTest
@@ -25,44 +20,34 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class ProjectResourceTest {
 
-  EasyRandom easyRandom;
-
-  Player testUser;
-  Project testProject;
-
-  @BeforeAll
-  @Transactional
-  public void setUp() {
-    easyRandom = easyRandom();
-
-    testProject = Project.create("TEST-PROJECT", "secret");
-    testUser = Player.create("TEST-USER", "secret");
-    testUser.addProject(testProject.id, "secret");
-  }
+  @Inject UserTransaction transaction;
 
   @Test
-  @Transactional
   public void testCreateProject() {
-    var request = easyRandom.nextObject(ProjectCreateRequest.class);
-    with()
-        .contentType(JSON)
-        .body(request)
-        .header("Authorization", "Bearer " + TestUtils.accessToken())
-        .when()
-        .post()
-        .then()
-        .statusCode(200);
+    var body = EASY_RANDOM.nextObject(ProjectCreateRequest.class);
+    var spec = givenTestUser(transaction);
 
-    Project persisted = Project.find("name", request.getName()).singleResult();
+    doInTransaction(transaction, () -> spec.body(body).post().then().statusCode(200));
+
+    Project persisted = Project.find("name", body.getName()).singleResult();
     assertThat(persisted).isNotNull();
   }
 
   @Test
   public void testMine() {
+    final String projectName = EASY_RANDOM.nextObject(String.class);
+    final String userName = EASY_RANDOM.nextObject(String.class);
+
+    doInTransaction(
+        transaction,
+        () -> {
+          var testProject = Project.create(projectName, projectName);
+          var testUser = Player.create(userName, userName);
+          testUser.addProject(testProject.id, projectName);
+        });
+
     var responseList =
-        given()
-            .when()
-            .header("Authorization", "Bearer " + TestUtils.accessToken())
+        givenTestUser(userName)
             .get("mine")
             .then()
             .statusCode(200)
@@ -70,7 +55,25 @@ class ProjectResourceTest {
             .jsonPath()
             .getList(".", ProjectResponse.class);
 
-    var expected = ProjectResponse.builder().id(testProject.id).name(testProject.name).build();
-    assertThat(responseList).containsOnly(expected);
+    assertThat(responseList).extracting(ProjectResponse::getName).containsExactly(projectName);
+  }
+
+  @Test
+  public void testListAll() {
+    var projectName = EASY_RANDOM.nextObject(String.class);
+
+    doInTransaction(transaction, () -> Project.create(projectName, projectName));
+
+    var responseList =
+        givenTestUser(transaction)
+            .get()
+            .then()
+            .statusCode(200)
+            .extract()
+            .jsonPath()
+            .getList(".", ProjectResponse.class);
+
+    assertThat(responseList).hasSizeGreaterThanOrEqualTo(1);
+    assertThat(responseList).extracting(ProjectResponse::getName).contains(projectName);
   }
 }

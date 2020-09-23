@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.time.ZonedDateTime;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,10 +30,17 @@ public class Match extends PanacheEntity {
     this.teams = new HashSet<>();
   }
 
-  public static Match create(ZonedDateTime date, Game game) {
+  public static Match create(ZonedDateTime date, Game game, Collection<TeamParameter> teams) {
     var match = new Match(date, game);
     match.persist();
     game.matches.add(match);
+
+    for (TeamParameter team : teams) {
+      var players = Player.findByIds(team.getPlayerIds());
+      match.addTeam(players, team.getScore());
+    }
+
+    match.score();
     return match;
   }
 
