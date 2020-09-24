@@ -2,27 +2,39 @@ CREATE SEQUENCE hibernate_sequence START WITH 1 INCREMENT BY 1;
 
 CREATE TABLE project
 (
-    id           BIGINT  NOT NULL,
-    name         VARCHAR NOT NULL,
-    passwordhash VARCHAR NOT NULL,
+    id           BIGINT    NOT NULL,
+    name         VARCHAR   NOT NULL,
+    passwordhash VARCHAR   NOT NULL,
+    createdby    VARCHAR   NOT NULL,
+    createdat    TIMESTAMP NOT NULL,
+    updatedby    VARCHAR   NOT NULL,
+    updatedat    TIMESTAMP NOT NULL,
     PRIMARY KEY (id),
     UNIQUE (name)
 );
 
 CREATE TABLE player
 (
-    id           BIGINT  NOT NULL,
-    name         VARCHAR NOT NULL,
-    passwordhash VARCHAR NOT NULL,
+    id           BIGINT    NOT NULL,
+    name         VARCHAR   NOT NULL,
+    passwordhash VARCHAR   NOT NULL,
+    createdat    TIMESTAMP NOT NULL,
+    createdby    VARCHAR   NOT NULL,
+    updatedat    TIMESTAMP NOT NULL,
+    updatedby    VARCHAR   NOT NULL,
     PRIMARY KEY (id),
     UNIQUE (name),
 );
 
 CREATE TABLE game
 (
-    id         BIGINT  NOT NULL,
-    name       VARCHAR NOT NULL,
-    project_id BIGINT  NOT NULL,
+    id         BIGINT    NOT NULL,
+    name       VARCHAR   NOT NULL,
+    project_id BIGINT    NOT NULL,
+    createdby  VARCHAR   NOT NULL,
+    createdat  TIMESTAMP NOT NULL,
+    updatedby  VARCHAR   NOT NULL,
+    updatedat  TIMESTAMP NOT NULL,
     PRIMARY KEY (id),
     UNIQUE (project_id, name),
     CONSTRAINT fk_game_project FOREIGN KEY (project_id) REFERENCES project
@@ -30,9 +42,13 @@ CREATE TABLE game
 
 CREATE TABLE match
 (
-    id      BIGINT    NOT NULL,
-    date    TIMESTAMP NOT NULL,
-    game_id BIGINT    NOT NULL,
+    id        BIGINT    NOT NULL,
+    date      TIMESTAMP NOT NULL,
+    game_id   BIGINT    NOT NULL,
+    createdby VARCHAR   NOT NULL,
+    createdat TIMESTAMP NOT NULL,
+    updatedby VARCHAR   NOT NULL,
+    updatedat TIMESTAMP NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT fk_match_game FOREIGN KEY (game_id) REFERENCES game
 );
@@ -50,10 +66,14 @@ VALUES ('WIN'),
 
 CREATE TABLE team
 (
-    id       BIGINT  NOT NULL,
-    result   VARCHAR,
-    score    INTEGER NOT NULL,
-    match_id BIGINT  NOT NULL,
+    id        BIGINT    NOT NULL,
+    result    VARCHAR,
+    score     INTEGER   NOT NULL,
+    match_id  BIGINT    NOT NULL,
+    createdby VARCHAR   NOT NULL,
+    createdat TIMESTAMP NOT NULL,
+    updatedby VARCHAR   NOT NULL,
+    updatedat TIMESTAMP NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT fk_team_match FOREIGN KEY (match_id) REFERENCES match,
     CONSTRAINT fk_team_result FOREIGN KEY (result) REFERENCES result_table (result)

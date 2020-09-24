@@ -2,7 +2,6 @@ package com.github.florianehmke.qompelo.domain;
 
 import com.github.florianehmke.qompelo.domain.exception.PlayerNotFoundException;
 import com.github.florianehmke.qompelo.domain.exception.PlayerPasswordWrongException;
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
@@ -19,7 +18,7 @@ import static com.github.florianehmke.qompelo.util.PasswordUtils.verifyPassword;
 
 @Entity
 @NoArgsConstructor
-public class Player extends PanacheEntity {
+public class Player extends BaseEntity {
 
   public String name;
 

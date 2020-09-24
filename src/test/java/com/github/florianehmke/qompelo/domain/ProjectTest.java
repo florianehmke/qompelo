@@ -12,6 +12,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @QuarkusTest
 class ProjectTest {
 
+  private static final String TEST_PROJECT = "Test Project";
+
   @Test
   public void test() {
     persist();
@@ -20,10 +22,8 @@ class ProjectTest {
 
   @Transactional(Transactional.TxType.NOT_SUPPORTED)
   public void verify() {
-    List<Project> projects = Project.listAll();
-    assertThat(projects).hasSize(1);
-
-    Project project = projects.get(0);
+    Project project = Project.find("name", TEST_PROJECT).singleResult();
+    assertThat(project).isNotNull();
     assertThat(project.players).hasSize(2);
     assertThat(project.games).hasSize(1);
 
@@ -44,7 +44,7 @@ class ProjectTest {
 
   @Transactional(Transactional.TxType.REQUIRES_NEW)
   public void persist() {
-    var project = Project.create("Test Project", "secret");
+    var project = Project.create(TEST_PROJECT, "secret");
     var player1 = Player.create("Player 1", "secret");
     var player2 = Player.create("Player 2", "secret");
 

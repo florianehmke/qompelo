@@ -1,6 +1,5 @@
 package com.github.florianehmke.qompelo.domain;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -9,7 +8,7 @@ import java.util.Set;
 
 @Entity
 @NoArgsConstructor
-public class Team extends PanacheEntity {
+public class Team extends BaseEntity {
 
   @ManyToOne(fetch = FetchType.EAGER)
   public Match match;

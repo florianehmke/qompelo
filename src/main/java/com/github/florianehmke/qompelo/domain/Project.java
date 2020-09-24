@@ -2,7 +2,6 @@ package com.github.florianehmke.qompelo.domain;
 
 import com.github.florianehmke.qompelo.domain.exception.ProjectNotFoundException;
 import com.github.florianehmke.qompelo.domain.exception.ProjectPasswordWrongException;
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -14,7 +13,7 @@ import static com.github.florianehmke.qompelo.util.PasswordUtils.verifyPassword;
 
 @Entity
 @NoArgsConstructor
-public class Project extends PanacheEntity {
+public class Project extends BaseEntity {
 
   @Column(unique = true)
   public String name;

@@ -1,7 +1,6 @@
 package com.github.florianehmke.qompelo.domain;
 
 import com.github.florianehmke.qompelo.domain.exception.GameNotFoundException;
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
@@ -16,7 +15,7 @@ import static java.time.ZonedDateTime.now;
 
 @Entity
 @NoArgsConstructor
-public class Game extends PanacheEntity {
+public class Game extends BaseEntity {
 
   public String name;
 

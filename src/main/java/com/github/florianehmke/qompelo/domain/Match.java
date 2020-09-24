@@ -1,6 +1,5 @@
 package com.github.florianehmke.qompelo.domain;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
@@ -14,7 +13,7 @@ import java.util.Set;
 
 @Entity
 @NoArgsConstructor
-public class Match extends PanacheEntity {
+public class Match extends BaseEntity {
 
   public ZonedDateTime date;
 
