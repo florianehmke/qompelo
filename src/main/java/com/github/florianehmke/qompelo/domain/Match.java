@@ -1,11 +1,10 @@
 package com.github.florianehmke.qompelo.domain;
 
+import io.vertx.mutiny.core.eventbus.EventBus;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.enterprise.inject.spi.CDI;
+import javax.persistence.*;
 import java.time.ZonedDateTime;
 import java.util.Collection;
 import java.util.HashSet;
@@ -69,5 +68,11 @@ public class Match extends BaseEntity {
         team.result = ResultEnum.DRAW;
       }
     }
+  }
+
+  @PostPersist
+  public void postPersist() {
+    var eventBus = CDI.current().select(EventBus.class).get();
+    eventBus.publish(Event.MATCH_CREATED, this);
   }
 }
