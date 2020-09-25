@@ -11,6 +11,9 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.github.florianehmke.qompelo.util.CollectionUtils.addAndReturn;
+import static com.github.florianehmke.qompelo.util.JpaUtils.persistAndReturn;
+
 @Entity
 @NoArgsConstructor
 public class Match extends BaseEntity {
@@ -23,30 +26,21 @@ public class Match extends BaseEntity {
   @OneToMany(mappedBy = "match", fetch = FetchType.EAGER)
   public Set<Team> teams;
 
+  public static Match create(ZonedDateTime date, Game game, Collection<TeamParameter> teams) {
+    var match = persistAndReturn(new Match(date, game));
+    teams.forEach(team -> match.addTeam(Player.findByIds(team.getPlayerIds()), team.getScore()));
+    match.score();
+    return match;
+  }
+
   public Match(ZonedDateTime date, Game game) {
     this.date = date;
     this.game = game;
     this.teams = new HashSet<>();
   }
 
-  public static Match create(ZonedDateTime date, Game game, Collection<TeamParameter> teams) {
-    var match = new Match(date, game);
-    match.persist();
-    game.matches.add(match);
-
-    for (TeamParameter team : teams) {
-      var players = Player.findByIds(team.getPlayerIds());
-      match.addTeam(players, team.getScore());
-    }
-
-    match.score();
-    return match;
-  }
-
   public Team addTeam(Set<Player> players, Integer score) {
-    var team = Team.create(this, score);
-    team.players.addAll(players);
-    return team;
+    return addAndReturn(teams, Team.create(this, score, players));
   }
 
   public void score() {

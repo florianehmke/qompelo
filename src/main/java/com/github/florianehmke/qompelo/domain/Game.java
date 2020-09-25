@@ -11,7 +11,10 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.github.florianehmke.qompelo.util.CollectionUtils.addAndReturn;
+import static com.github.florianehmke.qompelo.util.JpaUtils.persistAndReturn;
 import static java.time.ZonedDateTime.now;
+import static java.util.Optional.ofNullable;
 
 @Entity
 @NoArgsConstructor
@@ -25,28 +28,21 @@ public class Game extends BaseEntity {
   @OneToMany(mappedBy = "game", fetch = FetchType.EAGER)
   public Set<Match> matches;
 
+  public static Game create(String name, Project project) {
+    return persistAndReturn(new Game(name, project));
+  }
+
+  public static Game mustLoad(Long gameId) {
+    return (Game) ofNullable(findById(gameId)).orElseThrow(GameNotFoundException::new);
+  }
+
   public Game(String name, Project project) {
     this.name = name;
     this.project = project;
     this.matches = new HashSet<>();
   }
 
-  public static Game create(String name, Project project) {
-    var game = new Game(name, project);
-    game.persist();
-    project.games.add(game);
-    return game;
-  }
-
-  public static Game mustLoad(Long gameId) {
-    Game game = Game.findById(gameId);
-    if (game == null) {
-      throw new GameNotFoundException();
-    }
-    return game;
-  }
-
   public Match addMatch(Collection<TeamParameter> teams) {
-    return Match.create(now(), this, teams);
+    return addAndReturn(matches, Match.create(now(), this, teams));
   }
 }

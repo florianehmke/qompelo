@@ -1,8 +1,8 @@
 package com.github.florianehmke.qompelo.rest.endpoint.project.mapper;
 
+import com.github.florianehmke.qompelo.domain.Project;
 import com.github.florianehmke.qompelo.rest.endpoint.CentralMapperConfig;
 import com.github.florianehmke.qompelo.rest.endpoint.project.model.ProjectResponse;
-import com.github.florianehmke.qompelo.domain.Project;
 import org.mapstruct.Mapper;
 
 import java.util.Collection;

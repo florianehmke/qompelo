@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static com.github.florianehmke.qompelo.util.CollectionUtils.addAndReturn;
+import static com.github.florianehmke.qompelo.util.JpaUtils.persistAndReturn;
 import static com.github.florianehmke.qompelo.util.PasswordUtils.hashPassword;
 import static com.github.florianehmke.qompelo.util.PasswordUtils.verifyPassword;
 
@@ -21,23 +23,14 @@ import static com.github.florianehmke.qompelo.util.PasswordUtils.verifyPassword;
 public class Player extends BaseEntity {
 
   public String name;
-
-  private String passwordHash;
+  public String passwordHash;
 
   @JoinTable
   @ManyToMany(fetch = FetchType.EAGER)
   public Set<Project> projects;
 
-  public Player(String name, String password) {
-    this.name = name;
-    this.passwordHash = hashPassword(password);
-    this.projects = new HashSet<>();
-  }
-
   public static Player create(String name, String password) {
-    var player = new Player(name, password);
-    player.persist();
-    return player;
+    return persistAndReturn(new Player(name, password));
   }
 
   public static Player mustLoad(String name) {
@@ -61,11 +54,14 @@ public class Player extends BaseEntity {
     return new HashSet<>(Player.list("id in ?1", ids));
   }
 
+  public Player(String name, String password) {
+    this.name = name;
+    this.passwordHash = hashPassword(password);
+    this.projects = new HashSet<>();
+  }
+
   public Project addProject(Long projectId, String password) {
-    Project project = Project.loadAndVerifyPassword(projectId, password);
-    projects.add(project);
-    project.players.add(this);
-    return project;
+    return addAndReturn(projects, Project.loadAndVerifyPassword(projectId, password));
   }
 
   public List<Long> projectIds() {

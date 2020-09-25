@@ -63,11 +63,15 @@ Authorization: Bearer {{auth_token}}
   "teams": [
     {
       "score": 1,
-      "playerIds": [1]
+      "playerIds": [
+        1
+      ]
     },
     {
       "score": 2,
-      "playerIds": [2]
+      "playerIds": [
+        2
+      ]
     }
   ]
 }

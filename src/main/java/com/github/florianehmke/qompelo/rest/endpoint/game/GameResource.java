@@ -24,7 +24,7 @@ public class GameResource extends ProjectSubResource {
 
   @POST
   public GameResponse create(@Valid GameCreateRequest request) {
-    return mapper.map(Game.create(request.getName(), project));
+    return mapper.map(project.addGame(request.getName()));
   }
 
   @GET

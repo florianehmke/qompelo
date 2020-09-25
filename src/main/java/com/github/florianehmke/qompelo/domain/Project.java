@@ -8,8 +8,11 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.github.florianehmke.qompelo.util.CollectionUtils.addAndReturn;
+import static com.github.florianehmke.qompelo.util.JpaUtils.persistAndReturn;
 import static com.github.florianehmke.qompelo.util.PasswordUtils.hashPassword;
 import static com.github.florianehmke.qompelo.util.PasswordUtils.verifyPassword;
+import static java.util.Optional.ofNullable;
 
 @Entity
 @NoArgsConstructor
@@ -26,25 +29,12 @@ public class Project extends BaseEntity {
   @OneToMany(mappedBy = "project", fetch = FetchType.EAGER)
   public Set<Game> games;
 
-  public Project(String name, String password) {
-    this.name = name;
-    this.passwordHash = hashPassword(password);
-    this.players = new HashSet<>();
-    this.games = new HashSet<>();
-  }
-
   public static Project create(String name, String password) {
-    var project = new Project(name, password);
-    project.persist();
-    return project;
+    return persistAndReturn(new Project(name, password));
   }
 
   public static Project mustLoad(Long projectId) {
-    Project project = Project.findById(projectId);
-    if (project == null) {
-      throw new ProjectNotFoundException();
-    }
-    return project;
+    return (Project) ofNullable(findById(projectId)).orElseThrow(ProjectNotFoundException::new);
   }
 
   public static Project loadAndVerifyPassword(Long projectId, String password) {
@@ -56,7 +46,14 @@ public class Project extends BaseEntity {
     return project;
   }
 
+  public Project(String name, String password) {
+    this.name = name;
+    this.passwordHash = hashPassword(password);
+    this.players = new HashSet<>();
+    this.games = new HashSet<>();
+  }
+
   public Game addGame(String name) {
-    return Game.create(name, this);
+    return addAndReturn(games, Game.create(name, this));
   }
 }

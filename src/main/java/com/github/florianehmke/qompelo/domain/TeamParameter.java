@@ -8,6 +8,6 @@ import java.util.Set;
 @Value
 @Builder
 public class TeamParameter {
-    private final Set<Long> playerIds;
-    private final Integer score;
+  private final Set<Long> playerIds;
+  private final Integer score;
 }

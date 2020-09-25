@@ -3,8 +3,11 @@ package com.github.florianehmke.qompelo.domain;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+
+import static com.github.florianehmke.qompelo.util.JpaUtils.persistAndReturn;
 
 @Entity
 @NoArgsConstructor
@@ -22,16 +25,13 @@ public class Team extends BaseEntity {
   @Enumerated(EnumType.STRING)
   public ResultEnum result;
 
-  public Team(Match match, Integer score) {
-    this.match = match;
-    this.score = score;
-    this.players = new HashSet<>();
+  public static Team create(Match match, Integer score, Collection<Player> players) {
+    return persistAndReturn(new Team(match, score, players));
   }
 
-  public static Team create(Match match, Integer score) {
-    var team = new Team(match, score);
-    team.persist();
-    match.teams.add(team);
-    return team;
+  public Team(Match match, Integer score, Collection<Player> players) {
+    this.match = match;
+    this.score = score;
+    this.players = new HashSet<>(players);
   }
 }
