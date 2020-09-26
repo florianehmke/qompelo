@@ -1,4 +1,4 @@
-package com.github.florianehmke.qompelo.util;
+package com.github.florianehmke.util;
 
 import java.util.Collection;
 

@@ -8,10 +8,10 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.github.florianehmke.qompelo.util.CollectionUtils.addAndReturn;
-import static com.github.florianehmke.qompelo.util.JpaUtils.persistAndReturn;
-import static com.github.florianehmke.qompelo.util.PasswordUtils.hashPassword;
-import static com.github.florianehmke.qompelo.util.PasswordUtils.verifyPassword;
+import static com.github.florianehmke.util.CollectionUtils.addAndReturn;
+import static com.github.florianehmke.util.PanacheUtils.persistAndReturn;
+import static com.github.florianehmke.util.PasswordUtils.hashPassword;
+import static com.github.florianehmke.util.PasswordUtils.verifyPassword;
 import static java.util.Optional.ofNullable;
 
 @Entity

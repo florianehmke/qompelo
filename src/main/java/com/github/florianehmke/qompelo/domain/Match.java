@@ -10,8 +10,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.github.florianehmke.qompelo.util.CollectionUtils.addAndReturn;
-import static com.github.florianehmke.qompelo.util.JpaUtils.persistAndReturn;
+import static com.github.florianehmke.util.CollectionUtils.addAndReturn;
+import static com.github.florianehmke.util.PanacheUtils.persistAndReturn;
 
 @Entity
 @NoArgsConstructor
@@ -27,7 +27,7 @@ public class Match extends BaseEntity {
 
   public static Match create(ZonedDateTime date, Game game, Collection<TeamParameter> teams) {
     var match = persistAndReturn(new Match(date, game));
-    teams.forEach(team -> match.addTeam(Player.findByIds(team.getPlayerIds()), team.getScore()));
+    teams.forEach(team -> match.addTeam(team.players(), team.getScore()));
     match.score();
     return match;
   }

@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.github.florianehmke.qompelo.util.JpaUtils.persistAndReturn;
+import static com.github.florianehmke.util.PanacheUtils.persistAndReturn;
 
 @Entity
 @NoArgsConstructor

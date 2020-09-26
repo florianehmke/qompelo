@@ -13,10 +13,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.github.florianehmke.qompelo.util.CollectionUtils.addAndReturn;
-import static com.github.florianehmke.qompelo.util.JpaUtils.persistAndReturn;
-import static com.github.florianehmke.qompelo.util.PasswordUtils.hashPassword;
-import static com.github.florianehmke.qompelo.util.PasswordUtils.verifyPassword;
+import static com.github.florianehmke.util.CollectionUtils.addAndReturn;
+import static com.github.florianehmke.util.PanacheUtils.persistAndReturn;
+import static com.github.florianehmke.util.PasswordUtils.hashPassword;
+import static com.github.florianehmke.util.PasswordUtils.verifyPassword;
 
 @Entity
 @NoArgsConstructor

@@ -11,8 +11,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.github.florianehmke.qompelo.util.CollectionUtils.addAndReturn;
-import static com.github.florianehmke.qompelo.util.JpaUtils.persistAndReturn;
+import static com.github.florianehmke.util.CollectionUtils.addAndReturn;
+import static com.github.florianehmke.util.PanacheUtils.persistAndReturn;
 import static java.time.ZonedDateTime.now;
 import static java.util.Optional.ofNullable;
 
