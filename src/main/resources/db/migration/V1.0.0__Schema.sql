@@ -97,4 +97,17 @@ CREATE TABLE team_player
     PRIMARY KEY (team_id, players_id),
     CONSTRAINT fk_team_player_team FOREIGN KEY (team_id) REFERENCES team,
     CONSTRAINT fk_team_player_player FOREIGN KEY (players_id) REFERENCES player,
-)
+);
+
+CREATE TABLE elomatch
+(
+    id        BIGINT    NOT NULL,
+    state     VARCHAR   NOT NULL,
+    match_id  BIGINT    NOT NULL,
+    createdby VARCHAR   NOT NULL,
+    createdat TIMESTAMP NOT NULL,
+    updatedby VARCHAR   NOT NULL,
+    updatedat TIMESTAMP NOT NULL,
+    PRIMARY KEY (id),
+    CONSTRAINT fk_elomatch_match FOREIGN KEY (match_id) REFERENCES match
+);
