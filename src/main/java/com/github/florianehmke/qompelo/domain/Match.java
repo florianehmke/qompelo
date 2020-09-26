@@ -1,9 +1,10 @@
 package com.github.florianehmke.qompelo.domain;
 
-import io.vertx.mutiny.core.eventbus.EventBus;
 import lombok.NoArgsConstructor;
 
+import javax.enterprise.event.Event;
 import javax.enterprise.inject.spi.CDI;
+import javax.enterprise.util.AnnotationLiteral;
 import javax.persistence.*;
 import java.time.ZonedDateTime;
 import java.util.Collection;
@@ -72,7 +73,8 @@ public class Match extends BaseEntity {
 
   @PostPersist
   public void postPersist() {
-    var eventBus = CDI.current().select(EventBus.class).get();
-    eventBus.publish(Event.MATCH_CREATED, this);
+    // FIXME: https://github.com/quarkusio/quarkus/issues/6948
+    var qualifier = new AnnotationLiteral<MatchCreated>() {};
+    CDI.current().select(Event.class, qualifier).get().fire(this);
   }
 }

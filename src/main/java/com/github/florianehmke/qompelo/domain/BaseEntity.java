@@ -38,6 +38,7 @@ public class BaseEntity extends PanacheEntity {
   }
 
   private static String currentUser() {
+    // FIXME: https://github.com/quarkusio/quarkus/issues/6948
     var context = CDI.current().select(JsonWebToken.class).get();
     if (context != null) {
       String userName = context.getClaim(Claims.preferred_username.name());
