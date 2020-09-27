@@ -1,4 +1,4 @@
-package com.github.florianehmke.qompelo.domain;
+package com.github.florianehmke.qompelo.domain.events;
 
 import javax.inject.Qualifier;
 import java.lang.annotation.Retention;

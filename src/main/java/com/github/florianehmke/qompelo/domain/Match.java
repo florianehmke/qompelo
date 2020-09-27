@@ -1,5 +1,6 @@
 package com.github.florianehmke.qompelo.domain;
 
+import com.github.florianehmke.qompelo.domain.events.MatchCreated;
 import lombok.NoArgsConstructor;
 
 import javax.enterprise.event.Event;
@@ -15,6 +16,7 @@ import static com.github.florianehmke.util.CollectionUtils.addAndReturn;
 import static com.github.florianehmke.util.PanacheUtils.persistAndReturn;
 
 @Entity
+@EntityListeners(MatchEntityListener.class)
 @NoArgsConstructor
 public class Match extends BaseEntity {
 
@@ -69,12 +71,5 @@ public class Match extends BaseEntity {
         team.result = ResultEnum.DRAW;
       }
     }
-  }
-
-  @PostPersist
-  public void postPersist() {
-    // FIXME: https://github.com/quarkusio/quarkus/issues/6948
-    var qualifier = new AnnotationLiteral<MatchCreated>() {};
-    CDI.current().select(Event.class, qualifier).get().fire(this);
   }
 }
