@@ -1,6 +1,6 @@
 package com.github.florianehmke.qompelo.rest.endpoint.match.model;
 
-import com.github.florianehmke.qompelo.domain.ResultEnum;
+import com.github.florianehmke.qompelo.domain.match.ResultEnum;
 import com.github.florianehmke.qompelo.rest.endpoint.player.model.PlayerResponse;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

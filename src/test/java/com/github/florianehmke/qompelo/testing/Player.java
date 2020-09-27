@@ -2,7 +2,7 @@ package com.github.florianehmke.qompelo.testing;
 
 import javax.transaction.UserTransaction;
 
-import static com.github.florianehmke.qompelo.domain.Player.create;
+import static com.github.florianehmke.qompelo.domain.player.Player.create;
 import static com.github.florianehmke.qompelo.testing.util.Random.EASY_RANDOM;
 import static com.github.florianehmke.qompelo.testing.util.Transaction.doInTransaction;
 

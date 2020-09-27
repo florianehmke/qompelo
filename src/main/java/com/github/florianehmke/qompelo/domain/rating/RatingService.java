@@ -1,7 +1,7 @@
-package com.github.florianehmke.qompelo.domain;
+package com.github.florianehmke.qompelo.domain.rating;
 
-import com.github.florianehmke.qompelo.domain.events.MatchCreated;
-import com.github.florianehmke.qompelo.domain.events.RatingUpdate;
+import com.github.florianehmke.qompelo.domain.match.Match;
+import com.github.florianehmke.qompelo.domain.match.MatchCreated;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.microprofile.context.ManagedExecutor;
 
@@ -22,8 +22,7 @@ import static javax.transaction.Transactional.TxType.REQUIRES_NEW;
 public class RatingService {
 
   @Inject ManagedExecutor executor;
-  @Inject @RatingUpdate
-  Event<Match> ratingUpdate;
+  @Inject @RatingUpdate Event<Match> ratingUpdate;
 
   @Transactional(NOT_SUPPORTED)
   public void onMatchCreated(@Observes(during = AFTER_SUCCESS) @MatchCreated Match match) {

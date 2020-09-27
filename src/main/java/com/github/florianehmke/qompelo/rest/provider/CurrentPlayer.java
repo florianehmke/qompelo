@@ -1,6 +1,6 @@
 package com.github.florianehmke.qompelo.rest.provider;
 
-import com.github.florianehmke.qompelo.domain.Player;
+import com.github.florianehmke.qompelo.domain.player.Player;
 import org.eclipse.microprofile.jwt.Claim;
 import org.eclipse.microprofile.jwt.Claims;
 

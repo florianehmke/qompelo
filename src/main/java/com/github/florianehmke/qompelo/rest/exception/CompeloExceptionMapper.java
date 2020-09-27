@@ -1,6 +1,10 @@
 package com.github.florianehmke.qompelo.rest.exception;
 
-import com.github.florianehmke.qompelo.domain.exception.*;
+import com.github.florianehmke.qompelo.domain.CompeloException;
+import com.github.florianehmke.qompelo.domain.game.GameNotFoundException;
+import com.github.florianehmke.qompelo.domain.player.PlayerNotFoundException;
+import com.github.florianehmke.qompelo.domain.project.ProjectNotFoundException;
+import com.github.florianehmke.qompelo.domain.project.ProjectPasswordWrongException;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;

@@ -1,6 +1,6 @@
 package com.github.florianehmke.qompelo.rest.endpoint.match.mapper;
 
-import com.github.florianehmke.qompelo.domain.Match;
+import com.github.florianehmke.qompelo.domain.match.Match;
 import com.github.florianehmke.qompelo.rest.endpoint.CentralMapperConfig;
 import com.github.florianehmke.qompelo.rest.endpoint.match.model.MatchResponse;
 import org.mapstruct.Mapper;

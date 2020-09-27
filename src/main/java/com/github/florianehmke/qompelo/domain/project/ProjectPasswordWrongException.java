@@ -1,4 +1,6 @@
-package com.github.florianehmke.qompelo.domain.exception;
+package com.github.florianehmke.qompelo.domain.project;
+
+import com.github.florianehmke.qompelo.domain.CompeloException;
 
 public class ProjectPasswordWrongException extends CompeloException {
 

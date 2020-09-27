@@ -1,6 +1,6 @@
 package com.github.florianehmke.qompelo.rest.endpoint.game;
 
-import com.github.florianehmke.qompelo.domain.Game;
+import com.github.florianehmke.qompelo.domain.game.Game;
 import com.github.florianehmke.qompelo.rest.endpoint.game.mapper.GameMapper;
 import com.github.florianehmke.qompelo.rest.endpoint.game.model.GameCreateRequest;
 import com.github.florianehmke.qompelo.rest.endpoint.game.model.GameResponse;

@@ -1,6 +1,9 @@
-package com.github.florianehmke.qompelo.domain;
+package com.github.florianehmke.qompelo.domain.game;
 
-import com.github.florianehmke.qompelo.domain.exception.GameNotFoundException;
+import com.github.florianehmke.qompelo.domain.BaseEntity;
+import com.github.florianehmke.qompelo.domain.match.Match;
+import com.github.florianehmke.qompelo.domain.match.TeamParameter;
+import com.github.florianehmke.qompelo.domain.project.Project;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;

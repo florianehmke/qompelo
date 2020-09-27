@@ -1,5 +1,12 @@
 package com.github.florianehmke.qompelo.domain;
 
+import com.github.florianehmke.qompelo.domain.game.Game;
+import com.github.florianehmke.qompelo.domain.match.Match;
+import com.github.florianehmke.qompelo.domain.match.ResultEnum;
+import com.github.florianehmke.qompelo.domain.match.Team;
+import com.github.florianehmke.qompelo.domain.match.TeamParameter;
+import com.github.florianehmke.qompelo.domain.player.Player;
+import com.github.florianehmke.qompelo.domain.project.Project;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
 

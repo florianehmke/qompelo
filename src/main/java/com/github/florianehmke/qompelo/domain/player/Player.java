@@ -1,7 +1,7 @@
-package com.github.florianehmke.qompelo.domain;
+package com.github.florianehmke.qompelo.domain.player;
 
-import com.github.florianehmke.qompelo.domain.exception.PlayerNotFoundException;
-import com.github.florianehmke.qompelo.domain.exception.PlayerPasswordWrongException;
+import com.github.florianehmke.qompelo.domain.BaseEntity;
+import com.github.florianehmke.qompelo.domain.project.Project;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;

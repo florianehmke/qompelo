@@ -1,6 +1,4 @@
-package com.github.florianehmke.qompelo.domain;
-
-import com.github.florianehmke.qompelo.domain.events.MatchCreated;
+package com.github.florianehmke.qompelo.domain.match;
 
 import javax.enterprise.event.Event;
 import javax.enterprise.inject.spi.CDI;

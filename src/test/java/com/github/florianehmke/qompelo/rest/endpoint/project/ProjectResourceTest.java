@@ -1,7 +1,7 @@
 package com.github.florianehmke.qompelo.rest.endpoint.project;
 
-import com.github.florianehmke.qompelo.domain.Player;
-import com.github.florianehmke.qompelo.domain.Project;
+import com.github.florianehmke.qompelo.domain.player.Player;
+import com.github.florianehmke.qompelo.domain.project.Project;
 import com.github.florianehmke.qompelo.rest.endpoint.project.model.ProjectCreateRequest;
 import com.github.florianehmke.qompelo.rest.endpoint.project.model.ProjectResponse;
 import io.quarkus.test.common.http.TestHTTPEndpoint;

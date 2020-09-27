@@ -1,4 +1,4 @@
-package com.github.florianehmke.qompelo.domain.events;
+package com.github.florianehmke.qompelo.domain.match;
 
 import javax.inject.Qualifier;
 import java.lang.annotation.Retention;
@@ -10,4 +10,4 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Qualifier
 @Retention(RUNTIME)
 @Target({METHOD, FIELD, PARAMETER, TYPE})
-public @interface RatingUpdate {}
+public @interface MatchCreated {}

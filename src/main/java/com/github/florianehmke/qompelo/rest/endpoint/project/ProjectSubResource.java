@@ -1,6 +1,6 @@
 package com.github.florianehmke.qompelo.rest.endpoint.project;
 
-import com.github.florianehmke.qompelo.domain.Project;
+import com.github.florianehmke.qompelo.domain.project.Project;
 
 public class ProjectSubResource {
 

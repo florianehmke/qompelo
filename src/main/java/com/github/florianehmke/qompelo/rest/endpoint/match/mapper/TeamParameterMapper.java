@@ -1,6 +1,6 @@
 package com.github.florianehmke.qompelo.rest.endpoint.match.mapper;
 
-import com.github.florianehmke.qompelo.domain.TeamParameter;
+import com.github.florianehmke.qompelo.domain.match.TeamParameter;
 import com.github.florianehmke.qompelo.rest.endpoint.CentralMapperConfig;
 import com.github.florianehmke.qompelo.rest.endpoint.match.model.MatchCreateRequest;
 import org.mapstruct.Mapper;

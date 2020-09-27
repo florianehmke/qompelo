@@ -1,6 +1,6 @@
 package com.github.florianehmke.qompelo.rest.endpoint.match.mapper;
 
-import com.github.florianehmke.qompelo.domain.Team;
+import com.github.florianehmke.qompelo.domain.match.Team;
 import com.github.florianehmke.qompelo.rest.endpoint.CentralMapperConfig;
 import com.github.florianehmke.qompelo.rest.endpoint.match.model.TeamResponse;
 import com.github.florianehmke.qompelo.rest.endpoint.player.mapper.PlayerMapper;

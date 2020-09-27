@@ -1,7 +1,7 @@
 package com.github.florianehmke.qompelo.rest.endpoint.project;
 
-import com.github.florianehmke.qompelo.domain.Player;
-import com.github.florianehmke.qompelo.domain.Project;
+import com.github.florianehmke.qompelo.domain.player.Player;
+import com.github.florianehmke.qompelo.domain.project.Project;
 import com.github.florianehmke.qompelo.rest.endpoint.game.GameResource;
 import com.github.florianehmke.qompelo.rest.endpoint.player.mapper.PlayerMapper;
 import com.github.florianehmke.qompelo.rest.endpoint.player.model.PlayerResponse;

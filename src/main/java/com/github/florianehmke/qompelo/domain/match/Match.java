@@ -1,11 +1,10 @@
-package com.github.florianehmke.qompelo.domain;
+package com.github.florianehmke.qompelo.domain.match;
 
-import com.github.florianehmke.qompelo.domain.events.MatchCreated;
+import com.github.florianehmke.qompelo.domain.BaseEntity;
+import com.github.florianehmke.qompelo.domain.game.Game;
+import com.github.florianehmke.qompelo.domain.player.Player;
 import lombok.NoArgsConstructor;
 
-import javax.enterprise.event.Event;
-import javax.enterprise.inject.spi.CDI;
-import javax.enterprise.util.AnnotationLiteral;
 import javax.persistence.*;
 import java.time.ZonedDateTime;
 import java.util.Collection;

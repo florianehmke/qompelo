@@ -1,6 +1,6 @@
 package com.github.florianehmke.qompelo.rest.endpoint.game;
 
-import com.github.florianehmke.qompelo.domain.Game;
+import com.github.florianehmke.qompelo.domain.game.Game;
 
 public class GameSubResource {
 

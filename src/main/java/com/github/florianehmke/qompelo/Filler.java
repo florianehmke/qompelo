@@ -1,9 +1,9 @@
 package com.github.florianehmke.qompelo;
 
-import com.github.florianehmke.qompelo.domain.Game;
-import com.github.florianehmke.qompelo.domain.Player;
-import com.github.florianehmke.qompelo.domain.Project;
-import com.github.florianehmke.qompelo.domain.TeamParameter;
+import com.github.florianehmke.qompelo.domain.game.Game;
+import com.github.florianehmke.qompelo.domain.match.TeamParameter;
+import com.github.florianehmke.qompelo.domain.player.Player;
+import com.github.florianehmke.qompelo.domain.project.Project;
 import io.quarkus.runtime.StartupEvent;
 import io.quarkus.runtime.configuration.ProfileManager;
 
