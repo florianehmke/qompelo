@@ -1,31 +1,82 @@
-### Create Project
-
-POST http://localhost:8080/projects
+### Create Player
+POST http://localhost:8080/players
 Content-Type: application/json
 
 {
-  "name": "foo",
-  "password": "bar"
+  "name": "Player 1",
+  "password": "secret"
 }
 
-### Authenticate
-
-POST http://localhost:8080/auth
+### Login Player
+POST http://localhost:8080/players/login
 Content-Type: application/json
 
 {
-  "projectId": 1,
-  "password": "bar"
+  "name": "Player 1",
+  "password": "secret"
 }
 
 > {%
     client.global.set("auth_token", response.body.token);
   %}
 
-### List Projects
-
-GET http://localhost:8080/projects
+### Create Project
+POST http://localhost:8080/projects
 Content-Type: application/json
 Authorization: Bearer {{auth_token}}
 
+{
+  "name": "Avengers",
+  "password": "secret"
+}
+
+### List All Projects
+GET http://localhost:8080/projects
+Content-Type: application/json
+
+### List My Projects
+GET http://localhost:8080/projects/mine
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+### List Project's players
+GET http://localhost:8080/projects/3/players
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+### List Games
+GET http://localhost:8080/projects/3/games
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+### List Matches
+GET http://localhost:8080/projects/3/games/4/matches
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+### Create Match
+POST http://localhost:8080/projects/3/games/4/matches
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "teams": [
+    {
+      "score": 1,
+      "playerIds": [
+        1
+      ]
+    },
+    {
+      "score": 2,
+      "playerIds": [
+        2
+      ]
+    }
+  ]
+}
+
 ###
+
+
+
